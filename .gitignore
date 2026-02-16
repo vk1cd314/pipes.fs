@@ -1,0 +1,48 @@
+# Build outputs
+bin/
+obj/
+out/
+artifacts/
+TestResults/
+
+# .NET user / IDE state
+*.user
+*.suo
+*.userprefs
+*.rsuser
+.vs/
+
+# VS Code local state
+.vscode/.ropeproject/
+.vscode/*.code-workspace
+
+# F# tooling caches
+.ionide/
+.fake/
+
+# Paket / NuGet caches and generated restore files
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.assets.json
+
+# Coverage / profiling
+coverage/
+*.coverage
+*.coveragexml
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local agent guidance (kept out of git)
+AGENTS.md

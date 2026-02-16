@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="TestFramework.fs" />
+    <Compile Include="FrameTests.fs" />
+    <Compile Include="DiffTests.fs" />
+    <Compile Include="OpsOptimizeTests.fs" />
+    <Compile Include="FlowTests.fs" />
+    <Compile Include="SimDeterminismTests.fs" />
+    <Compile Include="PropertyTests.fs" />
+    <Compile Include="Tests.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\pipes.fs.Engine\pipes.fs.Engine.fsproj">
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "pipes.fs.App",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/pipes.fs.App/bin/Debug/net8.0/pipes.fs.App.dll",
+      "args": ["--mode", "ink", "--flow", "swirl", "--hud", "true"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "preLaunchTask": "build"
+    }
+  ]
+}

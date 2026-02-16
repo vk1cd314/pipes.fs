@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "restore",
+      "type": "shell",
+      "command": "DOTNET_CLI_HOME=/tmp/dotnet-home dotnet restore src/pipes.fs.App/pipes.fs.App.fsproj",
+      "group": "build"
+    },
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "DOTNET_CLI_HOME=/tmp/dotnet-home dotnet build src/pipes.fs.App/pipes.fs.App.fsproj -c Debug",
+      "group": "build",
+      "dependsOn": "restore"
+    },
+    {
+      "label": "run",
+      "type": "shell",
+      "command": "DOTNET_CLI_HOME=/tmp/dotnet-home dotnet run --project src/pipes.fs.App -- --mode ink --flow swirl",
+      "group": "test"
+    },
+    {
+      "label": "test",
+      "type": "shell",
+      "command": "DOTNET_CLI_HOME=/tmp/dotnet-home dotnet restore tests/pipes.fs.Tests/pipes.fs.Tests.fsproj && DOTNET_CLI_HOME=/tmp/dotnet-home dotnet run --project tests/pipes.fs.Tests -c Debug",
+      "group": "test",
+      "dependsOn": "build"
+    }
+  ]
+}
