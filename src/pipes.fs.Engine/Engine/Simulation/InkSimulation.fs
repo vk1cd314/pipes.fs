@@ -50,14 +50,15 @@ module InkSimulation =
                      + inkIntensityGrid.data[westNeighborCellIndex])
                     * 0.25f
 
-                clampToUnitInterval
-                    ((retainedCenterWeight * centerCellIntensity) + (clampedDiffusionAmount * neighborAverageIntensity)))
+                ((retainedCenterWeight * centerCellIntensity) + (clampedDiffusionAmount * neighborAverageIntensity))
+                |> clampToUnitInterval
+            )
 
     let advect
-            (flowKind: FlowKind)
+            (flowKind:                     FlowKind)
             (elapsedSimulationTimeSeconds: float32)
-            (dimensions: Dimensions)
-            (inkIntensityGrid: Grid<float32>)
+            (dimensions:                   Dimensions)
+            (inkIntensityGrid:             Grid<float32>)
         : Grid<float32> =
         inkIntensityGrid
         |> Grid.mapCellsWithCoordinates (fun columnIndex rowIndex _ ->

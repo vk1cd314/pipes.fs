@@ -7,18 +7,16 @@ module FramePacking =
     let emptyCellStyle: CellStyle = { 
         ForegroundColor = None
         BackgroundColor = None
-        IsBold = false
+        IsBold          = false
     }
 
-    let private quantizeColorChannelToSixBits (channelValue: byte) =
-        ((int channelValue * 63) / 255) |> uint64
+    let private quantizeColorChannelToSixBits (channelValue: byte) = ((int channelValue * 63) / 255) |> uint64
 
-    let private expandSixBitChannelToByteRange (quantizedChannelValue: uint64) =
-        ((int quantizedChannelValue * 255) / 63) |> byte
+    let private expandSixBitChannelToByteRange (quantizedChannelValue: uint64) = ((int quantizedChannelValue * 255) / 63) |> byte
 
     let private packRgbColorWithBitShift
-            (bitShift: int)
-            (rgbColor: RgbColor)
+            (bitShift:             int)
+            (rgbColor:             RgbColor)
             (packedFrameCellValue: PackedFrameCell)
         : PackedFrameCell =
         let packedRedChannel   = quantizeColorChannelToSixBits rgbColor.RedChannel <<< bitShift
@@ -83,11 +81,9 @@ module FramePacking =
               BackgroundColor = unpackedBackgroundColor
               IsBold = hasBoldStyle } }
 
-    let characterOfPackedFrameCell (packedFrameCellValue: PackedFrameCell) =
-        char (uint16 (packedFrameCellValue &&& 0xFFFFUL))
+    let characterOfPackedFrameCell (packedFrameCellValue: PackedFrameCell) = char (uint16 (packedFrameCellValue &&& 0xFFFFUL))
 
-    let styleOfPackedFrameCell (packedFrameCellValue: PackedFrameCell) =
-        (unpackFrameCell packedFrameCellValue).Style
+    let styleOfPackedFrameCell (packedFrameCellValue: PackedFrameCell) = (unpackFrameCell packedFrameCellValue).Style
 
     let blankFrame (frameWidth: int) (frameHeight: int) =
         let blankPackedFrameCell = packFrameCell ' ' emptyCellStyle
@@ -97,9 +93,9 @@ module FramePacking =
           PackedCells = Array.create (frameWidth * frameHeight) blankPackedFrameCell }
 
     let frameOfCells
-            (frameWidth: int)
+            (frameWidth:  int)
             (frameHeight: int)
-            (frameCells: FrameCell array)
+            (frameCells:  array<FrameCell>)
         =
         if frameCells.Length <> frameWidth * frameHeight then
             invalidArg "frameCells" "Frame cell length does not match dimensions."
@@ -108,5 +104,4 @@ module FramePacking =
           Height = frameHeight
           PackedCells = Array.map (fun currentFrameCell -> packFrameCell currentFrameCell.Character currentFrameCell.Style) frameCells }
 
-    let cellsOfFrame (virtualFrame: VirtualFrame) =
-        Array.map unpackFrameCell virtualFrame.PackedCells
+    let cellsOfFrame (virtualFrame: VirtualFrame) = Array.map unpackFrameCell virtualFrame.PackedCells

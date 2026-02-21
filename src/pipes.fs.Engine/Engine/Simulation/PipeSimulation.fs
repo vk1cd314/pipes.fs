@@ -11,10 +11,10 @@ module PipeSimulation =
     type PigmentColorUpdate = int * byte
 
     type WalkerTransitionResult = {
-        UpdatedWalkerState:   WalkerState
-        GeometryMaskUpdates:  array<GeometryMaskUpdate>
-        InkIntensityUpdate:   InkIntensityUpdate
-        PigmentColorUpdate:   PigmentColorUpdate
+        UpdatedWalkerState:  WalkerState
+        GeometryMaskUpdates: array<GeometryMaskUpdate>
+        InkIntensityUpdate:  InkIntensityUpdate
+        PigmentColorUpdate:  PigmentColorUpdate
     }
 
     let private directionFromRandomIndex (randomDirectionIndex: int) =
@@ -25,7 +25,7 @@ module PipeSimulation =
         | _ -> Direction.West
 
     let private chooseUpdatedDirection
-        (turnProbability: float32)
+        (turnProbability:  float32)
         (currentDirection: Direction)
         (randomTurnSample: float32)
         =
@@ -97,9 +97,9 @@ module PipeSimulation =
         { pigmentColorGrid with data = updatedPigmentColorData }
 
     let private transitionSingleWalker
-        (simulationConfig: SimulationConfig)
-        (simulationModel: SimulationModel)
-        (currentWalkerState: WalkerState)
+        (simulationConfig:         SimulationConfig)
+        (simulationModel:          SimulationModel)
+        (currentWalkerState:       WalkerState)
         (deterministicRandomState: DeterministicRandomState)
         =
         let randomTurnSample, deterministicRandomStateAfterTurnSample = DeterministicRandom.nextFloat01 deterministicRandomState
@@ -130,10 +130,10 @@ module PipeSimulation =
         deterministicRandomStateAfterTurnSample
 
     let private maybeRespawnSingleWalker
-        (simulationConfig: SimulationConfig)
-        (dimensions: Dimensions)
-        (paletteColorCount: int)
-        (currentWalkerStates: WalkerState array)
+        (simulationConfig:         SimulationConfig)
+        (dimensions:               Dimensions)
+        (paletteColorCount:        int)
+        (currentWalkerStates:      array<WalkerState>)
         (deterministicRandomState: DeterministicRandomState)
         =
         if Array.isEmpty currentWalkerStates || simulationConfig.RespawnProbability <= 0.0f then
@@ -181,7 +181,8 @@ module PipeSimulation =
                         if currentWalkerIndex = walkerIndexToRespawn then
                             replacementWalkerState
                         else
-                            currentWalkerState)
+                            currentWalkerState
+                    )
 
                 walkerStatesAfterRespawn, deterministicRandomStateAfterThickness
 

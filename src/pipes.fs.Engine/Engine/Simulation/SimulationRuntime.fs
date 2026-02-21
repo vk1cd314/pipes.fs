@@ -14,8 +14,8 @@ module SimulationRuntime =
         | _ -> Direction.West
 
     let private generateRandomWalkerState
-        (dimensions: Dimensions)
-        (paletteColorCount: int)
+        (dimensions:               Dimensions)
+        (paletteColorCount:        int)
         (deterministicRandomState: DeterministicRandomState)
         =
         let spawnColumnIndex, deterministicRandomStateAfterColumn =
@@ -50,13 +50,12 @@ module SimulationRuntime =
             |> max 1
 
         Array.init requestedWalkerCount id
-        |> Array.mapFold
-            (fun deterministicRandomState _ ->
-                generateRandomWalkerState
-                    dimensions
-                    discoveredPaletteColorCount
-                    deterministicRandomState)
-            simulationConfig.RandomSeed
+        |> Array.mapFold (fun deterministicRandomState _ ->
+            generateRandomWalkerState
+                dimensions
+                discoveredPaletteColorCount
+                deterministicRandomState
+        ) simulationConfig.RandomSeed
 
     let initModel (simulationConfig: SimulationConfig) (dimensions: Dimensions) =
         let initializedWalkerStates, deterministicRandomStateAfterInitialization =
@@ -72,8 +71,8 @@ module SimulationRuntime =
 
     let resizeModel
             (simulationConfig: SimulationConfig)
-            (dimensions: Dimensions)
-            (simulationModel: SimulationModel)
+            (dimensions:       Dimensions)
+            (simulationModel:  SimulationModel)
         : SimulationModel =
         let resizedSimulationConfig =
             { simulationConfig with
@@ -87,7 +86,7 @@ module SimulationRuntime =
     let step
             (simulationConfig: SimulationConfig)
             (deltaTimeSeconds: float32)
-            (simulationModel: SimulationModel)
+            (simulationModel:  SimulationModel)
         : SimulationModel =
         let simulationModelAfterWalkerStep = PipeSimulation.stepWalkers simulationConfig simulationModel
 

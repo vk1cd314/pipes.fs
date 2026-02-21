@@ -8,8 +8,8 @@ open pipes.fs.Engine.Render
 module HudOverlay =
     let applyHudOverlay
             (simulationConfig: SimulationConfig)
-            (simulationModel: SimulationModel)
-            (virtualFrame: VirtualFrame)
+            (simulationModel:  SimulationModel)
+            (virtualFrame:     VirtualFrame)
         : VirtualFrame =
         if not simulationConfig.ShowHudOverlay then
             virtualFrame

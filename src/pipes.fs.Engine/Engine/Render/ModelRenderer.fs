@@ -42,14 +42,13 @@ module ModelRenderer =
 
         let clampedBrightnessScale = max 0.0f brightnessScale
 
-        clampToByteRange (float32 redChannel * clampedBrightnessScale),
+        clampToByteRange (float32 redChannel   * clampedBrightnessScale),
         clampToByteRange (float32 greenChannel * clampedBrightnessScale),
-        clampToByteRange (float32 blueChannel * clampedBrightnessScale)
+        clampToByteRange (float32 blueChannel  * clampedBrightnessScale)
 
-    let boxCharacterForMask (directionMask: byte) =
-        boxDrawingCharactersByMask[int directionMask &&& 0x0F]
+    let boxCharacterForMask (directionMask: byte) = boxDrawingCharactersByMask[int directionMask &&& 0x0F]
 
-    let private buildInkHazeStyle (paletteColorTriplets: (byte * byte * byte) array) (clampedInkIntensity: float32) =
+    let private buildInkHazeStyle (paletteColorTriplets: array<byte * byte * byte>) (clampedInkIntensity: float32) =
         if Array.isEmpty paletteColorTriplets then
             None
         else
@@ -57,20 +56,20 @@ module ModelRenderer =
             let tintColorTriplet = paletteColorTriplets[0]
             let scaledRedChannel, scaledGreenChannel, scaledBlueChannel = scaleRgbColor brightnessScale tintColorTriplet
 
-            Some { 
+            Some {
                 ForegroundColor =
-                    Some { 
-                        RedChannel = scaledRedChannel
+                    Some {
+                        RedChannel   = scaledRedChannel
                         GreenChannel = scaledGreenChannel
-                        BlueChannel = scaledBlueChannel 
+                        BlueChannel  = scaledBlueChannel
                     }
                 BackgroundColor = None
-                IsBold = false 
+                IsBold = false
             }
 
     let private packedCellForIndex
             (simulationModel:            SimulationModel)
-            (paletteColorTriplets:       (byte * byte * byte) array)
+            (paletteColorTriplets:       array<byte * byte * byte>)
             (availablePaletteColorCount: int)
             (isInkModeEnabled:           bool)
             currentCellIndex
@@ -121,8 +120,9 @@ module ModelRenderer =
                     paletteColorTriplets
                     availablePaletteColorCount
                     isInkModeEnabled
-                    currentCellIndex)
+                    currentCellIndex
+            )
 
-        { Width = frameWidth
-          Height = frameHeight
+        { Width       = frameWidth
+          Height      = frameHeight
           PackedCells = packedFrameCells }
